@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
@@ -21,6 +22,7 @@ import { EmployeeComponent } from './employee/employee.component';
 import { EmployeesService } from './services/employees.service';
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
 import { AppRoutingModule } from './app-routing.module';
+import { JobsComponent } from './jobs/jobs.component';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent,
     EmployeesComponent,
     EmployeeComponent,
-    EmployeeEditComponent
+    EmployeeEditComponent,
+    JobsComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { AppRoutingModule } from './app-routing.module';
     FlexLayoutModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpModule,
   ],
   providers: [EmployeesService],
   bootstrap: [AppComponent]

@@ -1,0 +1,7 @@
+<mat-form-field>
+  <mat-select matInput placeholder="Employee's position" name="position" (selectionChange)="selectedJob($event.value)" >
+    <mat-option *ngFor="let job of positions" [value]="job">
+      {{ job }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

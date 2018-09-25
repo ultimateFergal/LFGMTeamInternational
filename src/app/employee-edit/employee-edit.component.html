@@ -1,4 +1,4 @@
-<section class="signup-form">
+<section class="emp-form">
   <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
     <mat-form-field>
       <input type="text" 
@@ -7,6 +7,7 @@
       formControlName="name">
       <mat-error>Missing name</mat-error>
     </mat-form-field>
+    
     <mat-form-field>
       <input 
         matInput 
@@ -16,7 +17,9 @@
         [max]="maxDate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
+      <mat-error>Missing Date of birth</mat-error>
     </mat-form-field> 
+
     <mat-form-field>
       <input type="text" 
       matInput 
@@ -24,6 +27,7 @@
       formControlName="username">
       <mat-error>Missing username</mat-error>
     </mat-form-field> 
+
     <mat-form-field>
       <input 
         matInput 
@@ -33,19 +37,32 @@
         [max]="maxDateHD">
       <mat-datepicker-toggle matSuffix [for]="pickerHD"></mat-datepicker-toggle>
       <mat-datepicker #pickerHD></mat-datepicker>
-    </mat-form-field>     
+      <mat-error>Missing Hire Date</mat-error>
+    </mat-form-field>  
+
     <mat-form-field>
-      <mat-select placeholder="Employee's country" name="exercise">
+      <mat-select matInput placeholder="Employee's country" formControlName="countries">
         <mat-option *ngFor="let country of countries" [value]="country">
           {{ country.name }}
         </mat-option>
       </mat-select>
+    <mat-error>Missing country</mat-error>  
     </mat-form-field>
-      <mat-slide-toggle name=state>State</mat-slide-toggle>
-    <mat-button-toggle-group name="area" aria-label="Font Style">
-      <mat-button-toggle value="services">Services</mat-button-toggle>
-      <mat-button-toggle value="kitchen">Kitchen</mat-button-toggle>
+
+    <mat-slide-toggle formControlName="state" labelPosition="before" name="state">State</mat-slide-toggle>
+
+    <mat-button-toggle-group formControlName="state" name="area" #group="matButtonToggleGroup" value="areaSelected" (change)="onAreaChanged($event.value)" aria-label="Font Style" ngDefaultControl>
+      <mat-button-toggle value="services" (change)="onJobChanged($event.value)" >Services</mat-button-toggle>
+      <mat-button-toggle value="kitchen" (change)="onJobChanged($event.value)" >Kitchen</mat-button-toggle>
     </mat-button-toggle-group>
-    <button type="submit" mat-raised-button color="primary" [disabled]="employeeForm.Invalid">Submit</button>
+    
+    <app-jobs [areaSelected] = 'areaSelected' (jobSelected)='onJobSelected($event)' ></app-jobs>
+
+    <mat-form-field *ngIf="showTipRate">
+      <input type="number" matInput placeholder="Employee's Tip Rate" formControlName="tipRate">
+      <mat-error>Missing value</mat-error>
+    </mat-form-field>    
+
+    <button type="submit" mat-raised-button color="primary" [disabled]="!isValid()">Submit</button>
     </form>
 </section>
