@@ -1,0 +1,51 @@
+<section class="signup-form">
+  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input type="text" 
+      matInput 
+      placeholder="Employee's name" 
+      formControlName="name">
+      <mat-error>Missing name</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input 
+        matInput 
+        placeholder="Employee's birthday"
+        formControlName="DoB" 
+        [matDatepicker]="picker"
+        [max]="maxDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field> 
+    <mat-form-field>
+      <input type="text" 
+      matInput 
+      placeholder="Employee's username" 
+      formControlName="username">
+      <mat-error>Missing username</mat-error>
+    </mat-form-field> 
+    <mat-form-field>
+      <input 
+        matInput 
+        placeholder="Employee's hire date"
+        formControlName="hiredate" 
+        [matDatepicker]="pickerHD"
+        [max]="maxDateHD">
+      <mat-datepicker-toggle matSuffix [for]="pickerHD"></mat-datepicker-toggle>
+      <mat-datepicker #pickerHD></mat-datepicker>
+    </mat-form-field>     
+    <mat-form-field>
+      <mat-select placeholder="Employee's country" name="exercise">
+        <mat-option *ngFor="let country of countries" [value]="country">
+          {{ country.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+      <mat-slide-toggle name=state>State</mat-slide-toggle>
+    <mat-button-toggle-group name="area" aria-label="Font Style">
+      <mat-button-toggle value="services">Services</mat-button-toggle>
+      <mat-button-toggle value="kitchen">Kitchen</mat-button-toggle>
+    </mat-button-toggle-group>
+    <button type="submit" mat-raised-button color="primary" [disabled]="employeeForm.Invalid">Submit</button>
+    </form>
+</section>
