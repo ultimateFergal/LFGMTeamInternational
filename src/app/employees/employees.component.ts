@@ -54,7 +54,7 @@ export class EmployeesComponent implements OnInit, AfterViewInit {
     this.router.navigate(['newuser'])
   }
 
-  onDelete(value: any) {
-    console.log(value);
+  onDelete($key: string) {
+    this.employeesService.deleteEmployee($key);
   }
 }

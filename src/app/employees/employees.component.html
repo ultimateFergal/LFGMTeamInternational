@@ -1,3 +1,11 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>User list</span>
+    <span class="example-spacer"></span>
+    <mat-icon class="example-icon">format_list_bulleted</mat-icon>
+  </mat-toolbar-row>
+</mat-toolbar>
+
 <div fxLayoutAlign="center center">
   <mat-form-field fxFlex="40%">
     <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
@@ -33,11 +41,9 @@
   <ng-container matColumnDef="buttons">
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
     <mat-cell *matCellDef="let element">
-        <div class="button-row">
-      <a mat-mini-fab routerLink="edituser/:element.$key" color="primary"><i class="material-icons">edit</i></a>
-      <a mat-mini-fab routerLink="." color="primary"><i class="material-icons">remove_red_eye</i></a>
-      <button mat-mini-fab color="primary" (click)="onDelete(element.$key)"><i class="material-icons">delete</i></button>
-      </div>
+      <a mat-mini-fab matTooltip="Edit info" [routerLink]="['/edituser', element.$key]" color="primary"><i class="material-icons">edit</i></a>
+      <a mat-mini-fab matTooltip="See info" [routerLink]="['/edituser', element.$key, 'view']" color="primary"><i class="material-icons">remove_red_eye</i></a>
+      <button mat-mini-fab matTooltip="Delete user" color="primary" (click)="onDelete(element.$key)"><i class="material-icons">delete</i></button>      
     </mat-cell>
   </ng-container>
 

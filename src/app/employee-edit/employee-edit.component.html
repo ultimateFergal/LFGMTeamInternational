@@ -1,3 +1,12 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>{{ headerTitle }}</span>
+    <span class="example-spacer"></span>
+    <mat-icon class="example-icon">{{ iconTitle }}</mat-icon>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+
 <section class="emp-form">
   <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
     <mat-form-field>
