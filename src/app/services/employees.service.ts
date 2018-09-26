@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
 import { IEmployee } from '../models/employee';
-import { ICountry } from '../models/country';
+//import { ICountry } from '../models/country';
 
 
 @Injectable({
@@ -33,7 +33,6 @@ export class EmployeesService {
 
   createEmployee(employee: IEmployee) {
     this.employeesList.push({
-      id: employee.id,
       name: employee.name,
       dateOfBirth: employee.dateOfBirth,
       country: employee.country,
@@ -47,8 +46,7 @@ export class EmployeesService {
   }
 
   updateEmployee(employee: IEmployee) {
-    /*     this.employeesList.update(employee.$key, {
-          id: employee.id,
+        this.employeesList.update(employee.$key, {
           name: employee.name,
           dateOfBirth: employee.dateOfBirth,
           country: employee.country,
@@ -58,7 +56,7 @@ export class EmployeesService {
           area: employee.area,
           jobTitle: employee.jobTitle,
           tipRate: employee.tipRate
-        }); */
+        }); 
   }
 
   deleteEmployee($key: string) {

@@ -25,7 +25,7 @@
       matInput 
       placeholder="Employee's username" 
       formControlName="username">
-      <mat-error>Missing username</mat-error>
+      <mat-error>Missing username or invalid username(Avoid special characters)</mat-error>
     </mat-form-field> 
 
     <mat-form-field>
@@ -49,9 +49,9 @@
     <mat-error>Missing country</mat-error>  
     </mat-form-field>
 
-    <mat-slide-toggle formControlName="state" labelPosition="before" name="state">State</mat-slide-toggle>
+    <mat-slide-toggle formControlName="status" labelPosition="before" name="status">Status</mat-slide-toggle>
 
-    <mat-button-toggle-group formControlName="state" name="area" #group="matButtonToggleGroup" value="areaSelected" (change)="onAreaChanged($event.value)" aria-label="Font Style" ngDefaultControl>
+    <mat-button-toggle-group formControlName="area" name="area" #group="matButtonToggleGroup" value="areaSelected" (change)="onAreaChanged($event.value)" aria-label="Font Style" ngDefaultControl>
       <mat-button-toggle value="services" (change)="onJobChanged($event.value)" >Services</mat-button-toggle>
       <mat-button-toggle value="kitchen" (change)="onJobChanged($event.value)" >Kitchen</mat-button-toggle>
     </mat-button-toggle-group>
