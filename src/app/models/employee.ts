@@ -1,4 +1,5 @@
 export interface IEmployee {
+    $key?: string
     name: string;
     dateOfBirth?: Date;
     country: string;

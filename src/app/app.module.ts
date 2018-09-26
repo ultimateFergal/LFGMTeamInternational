@@ -23,6 +23,7 @@ import { EmployeesService } from './services/employees.service';
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
 import { AppRoutingModule } from './app-routing.module';
 import { JobsComponent } from './jobs/jobs.component';
+import { UserAgePipe } from './user-age.pipe';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { JobsComponent } from './jobs/jobs.component';
     EmployeesComponent,
     EmployeeComponent,
     EmployeeEditComponent,
-    JobsComponent
+    JobsComponent,
+    UserAgePipe
   ],
   imports: [
     BrowserModule,

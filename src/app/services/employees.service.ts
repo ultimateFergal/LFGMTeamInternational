@@ -24,6 +24,7 @@ export class EmployeesService {
 
   employeesList: AngularFireList<any>;
   selectedEmployee: IEmployee;
+  selectedEmployeed: any;
 
   constructor(private firebaseDB: AngularFireDatabase, private http: Http) { }
 
@@ -31,8 +32,38 @@ export class EmployeesService {
     return this.employeesList = this.firebaseDB.list('employees');
   }
 
+  getEmployee(key: any): any {
+    return this.firebaseDB.object('/employees/' + key).valueChanges()
+    /*     .subscribe(item => {
+            console.log(item);
+            return item;
+          }); */
+  }
+
   createEmployee(employee: IEmployee) {
+    if (!this.employeesList) {
+      this.employeesList = this.getEmployees();
+    }
+
     this.employeesList.push({
+      name: employee.name,
+      dateOfBirth: employee.dateOfBirth.toDateString(),
+      country: employee.country,
+      userName: employee.userName,
+      hireDate: employee.hireDate.toDateString(),
+      status: employee.status,
+      area: employee.area,
+      jobTitle: employee.jobTitle,
+      tipRate: employee.tipRate
+    });
+  }
+
+  updateEmployee(employee: IEmployee) {
+    if (!this.employeesList) {
+      this.employeesList = this.getEmployees();
+    }
+
+    this.employeesList.update(employee.$key, {
       name: employee.name,
       dateOfBirth: employee.dateOfBirth,
       country: employee.country,
@@ -43,20 +74,6 @@ export class EmployeesService {
       jobTitle: employee.jobTitle,
       tipRate: employee.tipRate
     });
-  }
-
-  updateEmployee(employee: IEmployee) {
-        this.employeesList.update(employee.$key, {
-          name: employee.name,
-          dateOfBirth: employee.dateOfBirth,
-          country: employee.country,
-          userName: employee.userName,
-          hireDate: employee.hireDate,
-          status: employee.status,
-          area: employee.area,
-          jobTitle: employee.jobTitle,
-          tipRate: employee.tipRate
-        }); 
   }
 
   deleteEmployee($key: string) {

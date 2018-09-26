@@ -14,7 +14,7 @@ import { IEmployee } from '../models/employee';
 })
 export class EmployeesComponent implements OnInit, AfterViewInit {
 
-  displayedColumns = ['name', 'dateOfBirth', 'userName', 'hireDate']; // Display order
+  displayedColumns = ['name', 'dateOfBirth', 'userName', 'hireDate', 'buttons']; // Display order
   dataSource = new MatTableDataSource<IEmployee>();
 
   @ViewChild(MatSort) sort: MatSort; // Access to the set up of the table
@@ -35,7 +35,6 @@ export class EmployeesComponent implements OnInit, AfterViewInit {
           x["$key"] = element.key;
           this.employeesList.push( x as IEmployee);
           this.dataSource.data = this.employeesList;
-          console.log(this.dataSource.data);
         })
       })
 
@@ -53,5 +52,9 @@ export class EmployeesComponent implements OnInit, AfterViewInit {
 
   addNewUser() {
     this.router.navigate(['newuser'])
+  }
+
+  onDelete(value: any) {
+    console.log(value);
   }
 }

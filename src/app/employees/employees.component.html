@@ -1,4 +1,4 @@
-<div fxLayoutAlign="center center"> 
+<div fxLayoutAlign="center center">
   <mat-form-field fxFlex="40%">
     <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
@@ -7,12 +7,12 @@
 
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{ element.name  }} </mat-cell>
+    <mat-cell *matCellDef="let element"> {{ element.name }} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="dateOfBirth">
     <mat-header-cell *matHeaderCellDef mat-sort-header> Age </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{ element.dateOfBirth | date }} </mat-cell>
+    <mat-cell *matCellDef="let element"> {{ element.dateOfBirth | userAge: 'element.dateOfBirth' }} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="userName">
@@ -22,12 +22,23 @@
 
   <ng-container matColumnDef="hireDate">
     <mat-header-cell *matHeaderCellDef mat-sort-header> Hire Date </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{ element.hireDate | date }} </mat-cell>
+    <mat-cell *matCellDef="let element"> {{ element.hireDate | date: 'yyyy/MM/dd' }} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="state">
     <mat-header-cell *matHeaderCellDef> State </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{ element.state }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="buttons">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let element">
+        <div class="button-row">
+      <a mat-mini-fab routerLink="edituser/:element.$key" color="primary"><i class="material-icons">edit</i></a>
+      <a mat-mini-fab routerLink="." color="primary"><i class="material-icons">remove_red_eye</i></a>
+      <button mat-mini-fab color="primary" (click)="onDelete(element.$key)"><i class="material-icons">delete</i></button>
+      </div>
+    </mat-cell>
   </ng-container>
 
   <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -36,4 +47,4 @@
 
 <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
-<button type="button" (click)="addNewUser()" mat-raised-button color="primary" >Add a new user</button>
+<button type="button" (click)="addNewUser()" mat-raised-button color="primary">Add a new user</button>

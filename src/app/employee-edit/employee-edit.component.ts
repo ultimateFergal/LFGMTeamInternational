@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { EmployeesService } from '../services/employees.service';
 import { MatSlideToggleModule } from '@angular/material';
@@ -33,11 +34,44 @@ export class EmployeeEditComponent implements OnInit {
   areaSelected: string = "services";
   selectedJob: string ="";
   showTipRate: boolean = false;
+  paramId: string;
 
 
-  constructor(private employeesService: EmployeesService) { }
+  constructor(private employeesService: EmployeesService, 
+              private router: Router, 
+              private route: ActivatedRoute,
+              ) { }
 
   ngOnInit() {    
+
+    this.route.paramMap.subscribe(params => {
+      this.paramId = params.get('id');
+      if (this.paramId) {
+        console.log("this.paramId");
+        console.log(this.paramId);
+        this.employeesService.getEmployee(this.paramId)    .subscribe(item => {
+          //console.log(item);
+          //return item;
+          this.areaSelected = item.area;
+          this.selectedJob = item.jobTitle;
+          console.log(item);
+          this.employeeForm.patchValue({
+            name: item.name,
+            DoB: new Date(item.dateOfBirth),
+            username: item.userName,
+            hiredate: new Date(item.hireDate),
+            countries: item.country,
+            status: item.status,
+            area: item.status,
+            tipRate: item.tipRate,
+            
+          });
+        });
+      } else {
+        console.log("NOedit");
+      }
+    });
+    
     
     this.maxDate = new Date();
     this.maxDateHD = new Date();
@@ -68,7 +102,7 @@ export class EmployeeEditComponent implements OnInit {
   }
 
   onJobSelected(selectedJob: string) {
-    console.log(selectedJob);
+    //console.log(selectedJob);
     this.selectedJob = selectedJob
     if (this.selectedJob === 'Waitress' || this.selectedJob === 'Dining room manager') {
       this.showTipRate = true;
@@ -81,9 +115,6 @@ export class EmployeeEditComponent implements OnInit {
   }
 
   onAreaChanged(area: any) {
-    console.log("area");
-    console.log(area);
-    console.log("area");
     if (area === "kitchen") {
       this.showTipRate = false;
       this.employeeForm.get('tipRate').clearValidators();      
@@ -96,8 +127,6 @@ export class EmployeeEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.employeeForm);
-    console.log(this.employee); 
     this.employee.name = this.employeeForm.get('name').value;
     this.employee.dateOfBirth = this.employeeForm.get('DoB').value;
     this.employee.country = this.employeeForm.get('countries').value.name;
@@ -108,9 +137,12 @@ export class EmployeeEditComponent implements OnInit {
     this.employee.jobTitle = this.selectedJob;
     this.employee.tipRate = this.employeeForm.get('tipRate').value;
 
-    console.log(this.employeeForm.get('hiredate').value);
-    console.log(this.employeeForm.get('DoB').value);
-    this.employeesService.createEmployee({ ...this.employee });
+    if (!this.paramId) {
+      this.employeesService.createEmployee({ ...this.employee });
+    } else {
+      this.employeesService.updateEmployee({ ...this.employee });
+    }
+    this.router.navigate(['userlist'])
   }
 
   isValid(): boolean{
@@ -120,5 +152,9 @@ export class EmployeeEditComponent implements OnInit {
     else 
       return false;
       
+  }
+
+  goToUserList() {
+    this.router.navigate(['userlist'])
   }
 }
